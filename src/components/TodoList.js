@@ -34,7 +34,7 @@ const TodosList = ({todos, setTodos, setEditTodo}) => {
                     <h6 className="mt-2 mb-0 align-middle">{todo.title}</h6>
                 }
                 <div>
-                    <button className="btn btn-outline-danger" onClick={()=> handleComplete(todo)}>
+                    <button className="btn btn-outline-success" onClick={()=> handleComplete(todo)}>
                         <i className="fa fa-check-circle"></i>
                     </button>
                     <button className="btn btn-outline-primary" onClick={()=> handleEdit(todo)}>
