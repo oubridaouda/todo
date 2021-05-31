@@ -1,0 +1,19 @@
+body{
+    background-color: chocolate;
+}
+.App{
+    min-height: 400px;
+    width: 300px;
+    margin: 40px auto;
+
+}
+#but{
+    border: 0;
+    width: 300px;
+    height: 40px;
+}
+
+#edit{
+    width: 300px;
+}
+
