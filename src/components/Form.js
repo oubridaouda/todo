@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import { v4 as uuidv4 } from "uuid"
+import db from './firebase';
+import firebase from 'firebase';
+
 import { Button } from 'reactstrap';
 
 const Form = ({input, setInput, todos, setTodos,editTodo,setEditTodo }) => {
-    const updateTodo = (title,id,completed)=>{
-        const newTodo = todos.map((todo) =>
-        todo.id === id ? {title, id, completed} : todo
-        );
-        setTodos(newTodo);
-        setEditTodo("");
-    };
+   // const updateTodo = (title,id,completed)=>{
+    //    const newTodo = todos.map((todo) =>
+    //    todo.id === id ? {title, id, completed} : todo
+     //   );
+     //   setTodos(newTodo);
+    //    setEditTodo("");
+    //};
     useEffect(()=>{
         if(editTodo){
             setInput(editTodo.title);
@@ -23,18 +25,21 @@ const Form = ({input, setInput, todos, setTodos,editTodo,setEditTodo }) => {
     };
         const onFormSubmit = (event)=>{
             event.preventDefault();
-    if(!editTodo){
-
-            setTodos([...todos, {id: uuidv4(), title: input, completed: false}]);
+    db.collection('todos').add({
+        todo: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
             setInput("");
-    } else {
-        updateTodo(input, editTodo.id, editTodo.completed)
-    }
-
         };
-        
+
+
+
+
 
     return (
+        <>
+        <header><button >Sign Out</button></header>
+
         <form onSubmit={onFormSubmit} id="form">
             <div className="input-group">
                 <div className="input-group-prepend">
@@ -55,7 +60,9 @@ const Form = ({input, setInput, todos, setTodos,editTodo,setEditTodo }) => {
             </div>
 
         </form>
+            </>
     );
 };
+
 
 export default Form;

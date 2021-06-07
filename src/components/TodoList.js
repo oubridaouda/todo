@@ -1,4 +1,6 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import db from './firebase';
 
 const TodosList = ({todos, setTodos, setEditTodo}) => {
 
@@ -7,8 +9,8 @@ const TodosList = ({todos, setTodos, setEditTodo}) => {
         const findTodo = todos.find((todo)=>todo.id === id);
         setEditTodo(findTodo);
     };
-    const handleDelete =({id})=>{
-        setTodos(todos.filter((todo)=> todo.id !==id));
+    const handleDelete =({todo})=>{
+        db.collection('todos').doc('9TS3VxOKQwciaaxGoOHO').delete();
     }
 
     const handleComplete = (todo) => {
@@ -23,6 +25,7 @@ const TodosList = ({todos, setTodos, setEditTodo}) => {
     };
 
 
+
     return(
     <div>
         {todos.map((todo)=>(
@@ -31,7 +34,7 @@ const TodosList = ({todos, setTodos, setEditTodo}) => {
                     {todo.completed
                     ?
                     <h6 className="mt-2 mb-0 align-middle" style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>{todo.title}</h6>:
-                    <h6 className="mt-2 mb-0 align-middle">{todo.title}</h6>
+                    <h6 className="mt-2 mb-0 align-middle">{todo}</h6>
                 }
                 <div>
                     <button className="btn btn-outline-success" onClick={()=> handleComplete(todo)}>
@@ -49,7 +52,6 @@ const TodosList = ({todos, setTodos, setEditTodo}) => {
 
         </div>
         ))}
-
     </div>
     );
 };
