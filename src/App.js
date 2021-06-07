@@ -7,7 +7,7 @@ import TodosList from "./components/TodoList";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import db from "./components/firebase";
-import data from "bootstrap/js/src/dom/data";
+//import data from "bootstrap/js/src/dom/data";
 
 const App = () => {
   const [input, setInput] = useState("");
