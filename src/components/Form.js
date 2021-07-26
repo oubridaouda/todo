@@ -1,68 +1,66 @@
-import React, { useEffect } from 'react';
-import db from './firebase';
-import firebase from 'firebase';
+import React, {useState} from "react";
+import db from "./firebase";
+import firebase from "firebase";
 
-import { Button } from 'reactstrap';
+import {Button} from "reactstrap";
 
-const Form = ({input, setInput, todos, setTodos,editTodo,setEditTodo }) => {
-   // const updateTodo = (title,id,completed)=>{
-    //    const newTodo = todos.map((todo) =>
-    //    todo.id === id ? {title, id, completed} : todo
-     //   );
-     //   setTodos(newTodo);
-    //    setEditTodo("");
-    //};
-    useEffect(()=>{
-        if(editTodo){
-            setInput(editTodo.title);
-        }else{
-            setInput("");
-        }
-    },[setInput, editTodo]);
+export const TodoForm = ({ name,setTodoName , id }) => {
+  const [isUpdated,setIsUpdated]=useState(false)
+  const onInputChange = (event) => {
+    setTodoName(event.target.value);
+  };
+  const onFormSubmit = async (event) => {
+    event.preventDefault();
+    if (id && !isUpdated ) {
+      try {
+        await db.collection("todos").doc(id).set(
+          {
+            name: name,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+        setTodoName("");
+        setIsUpdated(true)
+      } catch (e) {
+        console.log("Echec de modification");
+      }
+    } else {
+      try {
+        await db.collection("todos").add({
+          name: name,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        setTodoName("");
+      } catch (e) {
+        console.log("Echec d'ajout");
+      }
+    }
+  };
 
-    const onInputChange = (event)=>{
-        setInput(event.target.value);
-    };
-        const onFormSubmit = (event)=>{
-            event.preventDefault();
-    db.collection('todos').add({
-        todo: input,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-            setInput("");
-        };
+  return (
+    <>
+      <header>
+        <button>Sign Out</button>
+      </header>
 
+      <form onSubmit={onFormSubmit} id="form">
+        <div className="input-group">
+          <div className="input-group-prepend"></div>
 
-
-
-
-    return (
-        <>
-        <header><button >Sign Out</button></header>
-
-        <form onSubmit={onFormSubmit} id="form">
-            <div className="input-group">
-                <div className="input-group-prepend">
-                </div>
-
-            <input
-                type="text"
-                className="form-control"
+          <input
+            type="text"
+            className="form-control"
             placeholder="Enter a Todo..."
-            value={input}
+            value={name}
             required
             onChange={onInputChange}
-            />
-            <Button color="primary" id="but" type="submit">
-                {editTodo ? "OK" : "Add"}
-            </Button>
-
-            </div>
-
-        </form>
-            </>
-    );
+          />
+          <Button color="primary" id="but" type="submit">
+            {id && !isUpdated ? "Update" : "Add"}
+          </Button>
+        </div>
+      </form>
+    </>
+  );
 };
-
-
-export default Form;
