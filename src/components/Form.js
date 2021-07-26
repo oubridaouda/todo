@@ -1,17 +1,17 @@
-import React, {useState} from "react";
-import db from "./firebase";
+import React, { useState } from "react";
+import db from "../utils/firebase";
 import firebase from "firebase";
 
-import {Button} from "reactstrap";
+import { Button } from "reactstrap";
 
-export const TodoForm = ({ name,setTodoName , id }) => {
-  const [isUpdated,setIsUpdated]=useState(false)
+export const TodoForm = ({ name, setTodoName, id }) => {
+  const [isUpdated, setIsUpdated] = useState(false);
   const onInputChange = (event) => {
     setTodoName(event.target.value);
   };
   const onFormSubmit = async (event) => {
     event.preventDefault();
-    if (id && !isUpdated ) {
+    if (id && !isUpdated) {
       try {
         await db.collection("todos").doc(id).set(
           {
@@ -21,7 +21,7 @@ export const TodoForm = ({ name,setTodoName , id }) => {
           { merge: true }
         );
         setTodoName("");
-        setIsUpdated(true)
+        setIsUpdated(true);
       } catch (e) {
         console.log("Echec de modification");
       }
@@ -40,9 +40,9 @@ export const TodoForm = ({ name,setTodoName , id }) => {
 
   return (
     <>
-      <header>
-        <button>Sign Out</button>
-      </header>
+      {/*<header>*/}
+      {/*  <button>Sign Out</button>*/}
+      {/*</header>*/}
 
       <form onSubmit={onFormSubmit} id="form">
         <div className="input-group">
