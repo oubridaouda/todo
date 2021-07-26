@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "firebase-tools": "^9.12.1"
+    "firebase-tools": "^9.12.1",
+    "prettier-plugin-organize-imports": "^2.3.3"
   }
 }
