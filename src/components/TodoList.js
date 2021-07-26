@@ -1,10 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import db from "./firebase";
+import db from "../utils/firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { TodoItem } from "./TodoItem";
 
-const TodosList = ({setTodoName,setTodoId}) => {
+const TodosList = ({ setTodoName, setTodoId }) => {
   const [todos, loading, error] = useCollectionData(
     db.collection("todos").orderBy("createdAt", "desc"),
     {
