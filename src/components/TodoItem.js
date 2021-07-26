@@ -1,11 +1,10 @@
-import db from "./firebase";
+import db from "../utils/firebase";
 import firebase from "firebase";
 
-
-export const TodoItem = ({ todo,setTodoName,setTodoId }) => {
+export const TodoItem = ({ todo, setTodoName, setTodoId }) => {
   const handleEdit = () => {
-   setTodoName(todo.name)
-   setTodoId(todo.id)
+    setTodoName(todo.name);
+    setTodoId(todo.id);
   };
   const handleDelete = async () => {
     try {
@@ -24,32 +23,31 @@ export const TodoItem = ({ todo,setTodoName,setTodoId }) => {
     //     return item;
     //   })
     // );
-      if(!todo.completed){
-          try {
-              await db.collection("todos").doc(todo.id).set(
-                  {
-                      completed: true,
-                      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                  },
-                  { merge: true })
-          }catch (e) {
-              console.log("Echec");
-          }
-      }else {
-          try {
-              await db.collection("todos").doc(todo.id).set(
-                  {
-                      completed: false,
-                      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                  },
-                  { merge: true })
-          }catch (e) {
-              console.log("Echec");
-
-          }
+    if (!todo.completed) {
+      try {
+        await db.collection("todos").doc(todo.id).set(
+          {
+            completed: true,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+      } catch (e) {
+        console.log("Echec");
       }
-
-
+    } else {
+      try {
+        await db.collection("todos").doc(todo.id).set(
+          {
+            completed: false,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+      } catch (e) {
+        console.log("Echec");
+      }
+    }
   };
 
   return (
@@ -72,16 +70,10 @@ export const TodoItem = ({ todo,setTodoName,setTodoId }) => {
           <h6 className="mt-2 mb-0 align-middle">{todo.name}</h6>
         )}
         <div>
-          <button
-            className="btn btn-outline-success"
-            onClick={handleComplete}
-          >
+          <button className="btn btn-outline-success" onClick={handleComplete}>
             <i className="fa fa-check-circle"></i>
           </button>
-          <button
-            className="btn btn-outline-primary"
-            onClick={handleEdit}
-          >
+          <button className="btn btn-outline-primary" onClick={handleEdit}>
             <i className="fa fa-edit"></i>
           </button>
           <button className="btn btn-outline-danger" onClick={handleDelete}>
