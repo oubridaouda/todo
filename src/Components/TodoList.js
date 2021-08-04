@@ -14,8 +14,8 @@ const TodosList = ({ setTodoName, setTodoId }) => {
 
   if (loading) {
     return (
-      <div>
-        <p>loading...</p>
+      <div className="spinner-border text-primary m-lg-5 load" role="status">
+        <span className="sr-only">Loading...</span>
       </div>
     );
   }

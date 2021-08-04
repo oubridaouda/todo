@@ -1,14 +1,21 @@
-import React, {useState} from "react";
-
+import React, { useEffect, useState } from "react";
+import Header from "./Components/Header";
 import "./App.css";
-import Header from "./components/Header";
-import TodosList from "./components/TodoList";
+import TodosList from "./Components/TodoList";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {TodoForm} from "./components/Form";
+import { TodoForm } from "./Components/Form";
+import Login from "./Components/Login";
+import LogOut from "./Components/LogOut";
+import Signup from "./Components/Signup";
+
+import firebase from "firebase";
 
 const App = () => {
   const [todoId, setTodoId] = useState("");
   const [todoName, setTodoName] = useState("");
+  const [todoUser, setTodoUser] = useState("");
+
+  //Auth user
 
   return (
     <div className="App">
@@ -16,11 +23,23 @@ const App = () => {
         <div>
           <Header />
         </div>
+
         <div>
-          <TodoForm id={todoId} name={todoName} setTodoName={setTodoName}/>
-        </div>
-        <div>
-          <TodosList setTodoName={setTodoName} setTodoId={setTodoId}  />
+          {todoUser ? (
+            <div>
+              <LogOut setTodoUser={setTodoUser} />
+              <div>
+                <TodoForm
+                  id={todoId}
+                  name={todoName}
+                  setTodoName={setTodoName}
+                />
+              </div>
+              <TodosList setTodoName={setTodoName} setTodoId={setTodoId} />
+            </div>
+          ) : (
+            <Login todoUserData={setTodoUser} />
+          )}
         </div>
       </div>
     </div>

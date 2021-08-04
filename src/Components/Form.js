@@ -40,10 +40,6 @@ export const TodoForm = ({ name, setTodoName, id }) => {
 
   return (
     <>
-      {/*<header>*/}
-      {/*  <button>Sign Out</button>*/}
-      {/*</header>*/}
-
       <form onSubmit={onFormSubmit} id="form">
         <div className="input-group">
           <div className="input-group-prepend"></div>
