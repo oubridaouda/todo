@@ -4,7 +4,7 @@ import firebase from "firebase";
 
 import { Button } from "reactstrap";
 
-export const TodoForm = ({ name, setTodoName, id }) => {
+export const TodoForm = ({ name, setTodoName, id, setTodoUser }) => {
   const [isUpdated, setIsUpdated] = useState(false);
   const onInputChange = (event) => {
     setTodoName(event.target.value);
@@ -41,7 +41,7 @@ export const TodoForm = ({ name, setTodoName, id }) => {
   return (
     <>
       <form onSubmit={onFormSubmit} id="form">
-        <div className="input-group">
+        <div className="input-group top">
           <div className="input-group-prepend"></div>
 
           <input

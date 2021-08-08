@@ -9,9 +9,7 @@ const LogOut = ({ setTodoUser }) => {
   return (
     <section>
       <nav>
-        <button onClick={handleLogout} className="btn btn-primary">
-          Logout
-        </button>
+        <button onClick={handleLogout} className="btn btn-warning" />
       </nav>
     </section>
   );

@@ -34,6 +34,8 @@ const Login = ({ todoUserData }) => {
             case "auth/wrong-password":
               setPasswordError(err.message);
               break;
+            default:
+              break;
           }
         });
     } catch (e) {
@@ -55,6 +57,8 @@ const Login = ({ todoUserData }) => {
               break;
             case "auth/weak-password":
               setPasswordError(err.message);
+              break;
+            default:
               break;
           }
         });
@@ -82,6 +86,7 @@ const Login = ({ todoUserData }) => {
   return (
     <section className="login">
       <div className="loginContainer card border-0 shadow rounded-3 my-5">
+        <h1 className={"text-center"}>Todo</h1>
         <div class="card-body p-4 p-sm-5">
           <label for="exampleInputEmail1" class="form-label">
             Username
@@ -95,7 +100,7 @@ const Login = ({ todoUserData }) => {
             id="exampleInputEmail1"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p className="errorMsg">{emailError}</p>
+          <p className="errorMsg error">{emailError}</p>
           <label for="exampleInputPassword1" class="form-label">
             Password
           </label>
@@ -108,7 +113,7 @@ const Login = ({ todoUserData }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <p className="errorMsg">{passwordError}</p>
+          <p className="errorMsg error">{passwordError}</p>
           <div className="btnContainer">
             {hasAccount ? (
               <>
@@ -121,10 +126,13 @@ const Login = ({ todoUserData }) => {
                 </button>
                 <p>
                   Don't have an account ?{" "}
-                  <span onClick={() => setHasAccount(!hasAccount)}>
+                  <a
+                    onClick={() => setHasAccount(!hasAccount)}
+                    className="underlineHover"
+                  >
                     {" "}
                     Sign up
-                  </span>
+                  </a>
                 </p>
               </>
             ) : (
@@ -134,10 +142,12 @@ const Login = ({ todoUserData }) => {
                 </button>
                 <p>
                   Have an account ?
-                  <span onClick={() => setHasAccount(!hasAccount)}>
-                    {" "}
+                  <a
+                    onClick={() => setHasAccount(!hasAccount)}
+                    className="underlineHover"
+                  >
                     Sign in
-                  </span>
+                  </a>
                 </p>
               </>
             )}
